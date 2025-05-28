@@ -1,0 +1,16 @@
+name: Continuos Integration
+
+#Events
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+#Step by Step
+jobs:
+  continuos-integrations:
+    runs-on: ubuntu-latest
+
+    steps:
+      -
