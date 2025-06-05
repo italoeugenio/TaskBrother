@@ -14,7 +14,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:latest
+        image: postgres:14
         env:
           POSTGRES_DB: ci_test
           POSTGRES_USER: ci_user_test
