@@ -12,6 +12,21 @@ jobs:
   continuos-integrations:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_DB: ci_test
+          POSTGRES_USER: ci_user_test
+          POSTGRES_PASSWORD: ci_pass_test
+        ports:
+          - 5432:5432
+      options: >-
+        --health-cmd pg_isready
+        --health-interval 10s
+        --health-timeout 5s
+        --health-retries 5    
+
     steps:
       - name: Downloading Repository
         uses: actions/checkout@v4
@@ -28,3 +43,9 @@ jobs:
 
       - name: Run tests
         run: mvn test
+        env:
+          DB_HOST: localhost
+          DB_PORT: 5432
+          DB_NAME: ci_test
+          DB_USER: ci_user_test
+          DB_PASSWORD: ci_pass_test
