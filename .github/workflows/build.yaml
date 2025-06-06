@@ -42,8 +42,6 @@ jobs:
       - name: Run tests
         run: mvn test
         env:
-          DB_HOST: localhost
-          DB_PORT: 5432
-          DB_NAME: ci_test
-          DB_USER: ci_user_test
-          DB_PASSWORD: ci_pass_test
+          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/ci_test
+          SPRING_DATASOURCE_USERNAME: ci_user_test
+          SPRING_DATASOURCE_PASSWORD: ci_pass_test
