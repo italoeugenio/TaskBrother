@@ -19,11 +19,11 @@ jobs:
           POSTGRES_PASSWORD: ci_pass_test
         ports:
           - 5432:5432
-        healthcheck:
-          test: [ "CMD-SHELL", "pg_isready -U ci_user_test" ]
-          interval: 10s
-          timeout: 5s
-          retries: 5
+    #        healthcheck:
+    #          test: [ "CMD-SHELL", "pg_isready -U ci_user_test" ]
+    #          interval: 10s
+    #          timeout: 5s
+    #          retries: 5
 
     steps:
       - name: Downloading Repository
