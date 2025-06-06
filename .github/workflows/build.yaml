@@ -1,0 +1,49 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  continuos-integrations:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_DB: ci_test
+          POSTGRES_USER: ci_user_test
+          POSTGRES_PASSWORD: ci_pass_test
+        ports:
+          - 5432:5432
+    #        healthcheck:
+    #          test: [ "CMD-SHELL", "pg_isready -U ci_user_test" ]
+    #          interval: 10s
+    #          timeout: 5s
+    #          retries: 5
+
+    steps:
+      - name: Downloading Repository
+        uses: actions/checkout@v4
+
+      - name : Setting JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Build project with maven
+        run: mvn clean install -DskipTests
+
+      - name: Run tests
+        run: mvn test
+        env:
+          DB_HOST: localhost
+          DB_PORT: 5432
+          DB_NAME: ci_test
+          DB_USER: ci_user_test
+          DB_PASSWORD: ci_pass_test
