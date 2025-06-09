@@ -17,10 +17,10 @@ public class RewardModel {
     private UUID rewardID;
 
     @Column(name = "title")
-    private String Title;
+    private String title;
 
     @Column(name = "description")
-    private String Description;
+    private String description;
 
     @Column(name = "price")
     private Integer price;
