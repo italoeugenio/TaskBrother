@@ -28,4 +28,8 @@ public class RewardModel {
     @ManyToOne
     @JoinColumn(name = "create_by")
     private UserModel createByParentFK;
+
+    @ManyToOne
+    @JoinColumn(name = "family_FK")
+    private FamilyModel familyFK;
 }

@@ -20,7 +20,7 @@ public class TaskModel {
     private UUID taskID;
 
     @ManyToOne
-    @PrimaryKeyJoinColumn(name = "family_FK")
+    @JoinColumn(name = "family_FK")
     private FamilyModel familyFK;
 
     @Column(name = "title")
