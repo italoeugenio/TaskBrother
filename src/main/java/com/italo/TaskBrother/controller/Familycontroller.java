@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("family")
 public class Familycontroller {
@@ -18,6 +20,11 @@ public class Familycontroller {
     @PostMapping("/post")
     public ResponseEntity<FamilyModel> saveFamily( @RequestBody @Valid FamilyRecordDTO familyRecordDTO) {
         return familyService.saveFamily(familyRecordDTO);
+    }
+
+    @GetMapping("/get/all")
+    public ResponseEntity<List<FamilyModel>> getAll(){
+        return familyService.getAllFAmily();
     }
 }
 

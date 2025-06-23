@@ -24,4 +24,10 @@ public class FamilyService {
         BeanUtils.copyProperties(familyRecordDTO, familyMdodel);
         return ResponseEntity.status(HttpStatus.CREATED).body(familyRepository.save(familyMdodel));
     }
+
+    public ResponseEntity<List<FamilyModel>> getAllFAmily(){
+        return ResponseEntity.status(HttpStatus.OK).body(familyRepository.findAll());
+    }
+
+
 }
