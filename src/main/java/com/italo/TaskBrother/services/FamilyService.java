@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class FamilyService {
@@ -19,7 +21,7 @@ public class FamilyService {
     @Autowired
     private FamilyRepository familyRepository;
 
-    public ResponseEntity<FamilyModel> saveFamily(@RequestBody FamilyRecordDTO familyRecordDTO){
+    public ResponseEntity<FamilyModel>saveFamily(@RequestBody FamilyRecordDTO familyRecordDTO){
         var familyMdodel = new FamilyModel();
         BeanUtils.copyProperties(familyRecordDTO, familyMdodel);
         return ResponseEntity.status(HttpStatus.CREATED).body(familyRepository.save(familyMdodel));
@@ -29,5 +31,11 @@ public class FamilyService {
         return ResponseEntity.status(HttpStatus.OK).body(familyRepository.findAll());
     }
 
-
+    public ResponseEntity<Object> getFamilyById(UUID id){
+        Optional<FamilyModel> familyModel = familyRepository.findById(id);
+        if(familyModel.isEmpty() || !(id instanceof UUID)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Family don´t found by id");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(familyModel);
+    }
 }

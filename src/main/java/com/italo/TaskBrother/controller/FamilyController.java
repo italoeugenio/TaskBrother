@@ -9,22 +9,29 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("family")
-public class Familycontroller {
+public class FamilyController {
 
     @Autowired
     private FamilyService familyService;
 
     @PostMapping("/post")
-    public ResponseEntity<FamilyModel> saveFamily( @RequestBody @Valid FamilyRecordDTO familyRecordDTO) {
+    public ResponseEntity<FamilyModel> saveFamily(@RequestBody @Valid FamilyRecordDTO familyRecordDTO) {
         return familyService.saveFamily(familyRecordDTO);
     }
 
     @GetMapping("/get/all")
     public ResponseEntity<List<FamilyModel>> getAll(){
         return familyService.getAllFAmily();
+    }
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Object> getById(@PathVariable("id") UUID id){
+        return familyService.getFamilyById(id);
     }
 }
 

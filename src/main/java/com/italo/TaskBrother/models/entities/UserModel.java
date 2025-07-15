@@ -16,8 +16,8 @@ public class UserModel {
     @Column(name = "user_ID")
     private UUID userID;
 
-    @OneToOne
-    @PrimaryKeyJoinColumn(name = "family_FK")
+    @ManyToOne
+    @JoinColumn(name = "family_FK")
     private FamilyModel familyFK;
 
     @Column(unique = true , nullable = false)
