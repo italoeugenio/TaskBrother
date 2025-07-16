@@ -35,7 +35,7 @@ public class FamilyController {
 
     @PutMapping("/put/{id}")
     public ResponseEntity<Object> updateFamily(@PathVariable("id") UUID id, @RequestBody @Valid FamilyRecordDTO familyRecordDTO){
-        return familyService.updatedFamily(id,familyRecordDTO);
+        return familyService.updateFamily(id,familyRecordDTO);
     }
 
     @DeleteMapping("/delete/{id}")

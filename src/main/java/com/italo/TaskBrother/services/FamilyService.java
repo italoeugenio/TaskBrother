@@ -3,7 +3,6 @@ package com.italo.TaskBrother.services;
 import com.italo.TaskBrother.models.dtos.FamilyRecordDTO;
 import com.italo.TaskBrother.models.entities.FamilyModel;
 import com.italo.TaskBrother.models.repository.FamilyRepository;
-import org.apache.coyote.Response;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -37,7 +35,7 @@ public class FamilyService {
         return ResponseEntity.status(HttpStatus.OK).body(familyModel);
     }
 
-    public ResponseEntity<Object> updatedFamily(UUID id, @RequestBody FamilyRecordDTO familyRecordDTO){
+    public ResponseEntity<Object> updateFamily(UUID id, @RequestBody FamilyRecordDTO familyRecordDTO){
         Optional<FamilyModel> optionalFamilyModel = familyRepository.findById(id);
         if(optionalFamilyModel.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Family don´t found");

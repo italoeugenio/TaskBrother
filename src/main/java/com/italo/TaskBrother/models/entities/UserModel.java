@@ -23,7 +23,9 @@ public class UserModel {
     @Column(unique = true , nullable = false)
     private String email;
 
-    @Column(name = "wallet")
-    private Integer wallet;
+    @Column(nullable = false)
+    private String password;
 
+    @Column(name = "wallet")
+    private final Integer wallet = 0;
 }
