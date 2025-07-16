@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -32,6 +31,16 @@ public class FamilyController {
     @GetMapping("/get/{id}")
     public ResponseEntity<Object> getById(@PathVariable("id") UUID id){
         return familyService.getFamilyById(id);
+    }
+
+    @PutMapping("/put/{id}")
+    public ResponseEntity<Object> updateFamily(@PathVariable("id") UUID id, @RequestBody @Valid FamilyRecordDTO familyRecordDTO){
+        return familyService.updatedFamily(id,familyRecordDTO);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Object> deletById(@PathVariable("id") UUID id){
+        return familyService.deleteFamilyById(id);
     }
 }
 

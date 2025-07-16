@@ -3,6 +3,7 @@ package com.italo.TaskBrother.services;
 import com.italo.TaskBrother.models.dtos.FamilyRecordDTO;
 import com.italo.TaskBrother.models.entities.FamilyModel;
 import com.italo.TaskBrother.models.repository.FamilyRepository;
+import org.apache.coyote.Response;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,9 +23,9 @@ public class FamilyService {
     private FamilyRepository familyRepository;
 
     public ResponseEntity<FamilyModel>saveFamily(@RequestBody FamilyRecordDTO familyRecordDTO){
-        var familyMdodel = new FamilyModel();
-        BeanUtils.copyProperties(familyRecordDTO, familyMdodel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(familyRepository.save(familyMdodel));
+        var familyModel = new FamilyModel();
+        BeanUtils.copyProperties(familyRecordDTO, familyModel);
+        return ResponseEntity.status(HttpStatus.CREATED).body(familyRepository.save(familyModel));
     }
 
     public ResponseEntity<List<FamilyModel>> getAllFAmily(){
@@ -33,9 +34,25 @@ public class FamilyService {
 
     public ResponseEntity<Object> getFamilyById(UUID id){
         Optional<FamilyModel> familyModel = familyRepository.findById(id);
-        if(familyModel.isEmpty() || !(id instanceof UUID)){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Family don´t found by id");
-        }
         return ResponseEntity.status(HttpStatus.OK).body(familyModel);
+    }
+
+    public ResponseEntity<Object> updatedFamily(UUID id, @RequestBody FamilyRecordDTO familyRecordDTO){
+        Optional<FamilyModel> optionalFamilyModel = familyRepository.findById(id);
+        if(optionalFamilyModel.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Family don´t found");
+        }
+        var familyModel = optionalFamilyModel.get();
+        BeanUtils.copyProperties(familyRecordDTO, familyModel);
+        return ResponseEntity.status(HttpStatus.OK).body(familyRepository.save(familyModel));
+    }
+
+    public ResponseEntity<Object> deleteFamilyById(UUID id){
+        Optional<FamilyModel> optionalFamilyModel = familyRepository.findById(id);
+        if(optionalFamilyModel.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Family don´t found");
+        }
+        familyRepository.delete(optionalFamilyModel.get());
+        return ResponseEntity.status(HttpStatus.OK).body("Family deleted");
     }
 }
