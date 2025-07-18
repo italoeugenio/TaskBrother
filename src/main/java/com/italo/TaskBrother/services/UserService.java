@@ -4,7 +4,6 @@ import com.italo.TaskBrother.models.dtos.UserRecordDTO;
 import com.italo.TaskBrother.models.entities.UserModel;
 import com.italo.TaskBrother.models.repository.UserRepository;
 import com.italo.TaskBrother.utils.EmailValidator;
-import org.apache.catalina.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +22,7 @@ public class UserService {
 
     public ResponseEntity<Object> saveUser(@RequestBody UserRecordDTO userRecordDTO){
         Optional<UserModel> optionalUserModel = userRepository.findByemail(userRecordDTO.email());
-        if(!EmailValidator.emailValidador(userRecordDTO.email())){
+        if(!EmailValidator.checkIfEmailIsValid(userRecordDTO.email())){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Invalid Email");
         }
         if(optionalUserModel.isPresent()){
