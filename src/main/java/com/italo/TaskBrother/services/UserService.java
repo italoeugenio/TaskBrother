@@ -4,6 +4,7 @@ import com.italo.TaskBrother.models.dtos.UserRecordDTO;
 import com.italo.TaskBrother.models.entities.UserModel;
 import com.italo.TaskBrother.models.repository.UserRepository;
 import com.italo.TaskBrother.utils.EmailValidator;
+import org.apache.catalina.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -53,15 +54,15 @@ public class UserService {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(userModel);
     }
 
-//    public ResponseEntity<UserModel> changePassword(UUID id, String newPassword) {
-//        Optional<UserModel> optionalUserModel = userRepository.findById(id);
-//        if (optionalUserModel.isEmpty()) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-//        }
-//        UserModel userToUpdate = optionalUserModel.get();
-//        userToUpdate.
-//        UserModel updatedUser = userRepository.save(userToUpdate);
-//
-//        return ResponseEntity.ok(updatedUser);
-//    }
+
+    public ResponseEntity<Object> updateUser(UUID id, @RequestBody UserRecordDTO userRecordDTO) {
+        Optional<UserModel> optionalUserModel = userRepository.findById(id);
+        if (optionalUserModel.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
+        if (!EmailValidator.checkIfEmailIsValid(userRecordDTO.email())) return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        var userModel = optionalUserModel.get();
+        BeanUtils.copyProperties(userRecordDTO, userModel);
+        return ResponseEntity.status(HttpStatus.OK).body(userRepository.save(userModel));
+    }
 }

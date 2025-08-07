@@ -27,5 +27,5 @@ public class UserModel {
     private String password;
 
     @Column(name = "wallet")
-    private final Integer wallet = 0;
+    private Integer wallet = 0;
 }

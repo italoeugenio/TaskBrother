@@ -34,9 +34,14 @@ public class UserController {
         return userService.getByEmail(email);
     }
 
-    @PatchMapping("/change-password/{id}")
-    public ResponseEntity<UserModel> changePassword(@PathVariable("id") UUID id, @RequestBody Map<String, String> payload) {
-        String newPassword = payload.get("password");
-        return userService.changePassword(id,newPassword);
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Optional<UserModel>> getByID(@PathVariable("id") UUID id) {
+        return userService.getById(id);
     }
+
+    @PutMapping("/put/{id}")
+        public ResponseEntity<Object> updateUser(@PathVariable("id") UUID id, @RequestBody UserRecordDTO userRecordDTO){
+            return userService.updateUser(id, userRecordDTO);
+    }
+
 }

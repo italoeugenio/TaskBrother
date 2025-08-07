@@ -7,10 +7,10 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
-
 @Data
 @Entity
 @Table(name = "TB_TASKS")
+
 public class TaskModel {
     private static final long serialVersion = 1L;
 
@@ -34,7 +34,7 @@ public class TaskModel {
 
     @Column(name = "task_status")
     @Enumerated(EnumType.STRING)
-    private TaskStatus taskStatus;
+    private TaskStatus taskStatus = TaskStatus.AVAILABLE;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;
@@ -53,4 +53,9 @@ public class TaskModel {
     @JoinColumn(name = "assigned_to")
     private UserModel assignedTo;
 
+
+
+    public static void main(String[] args) {
+
+    }
 }
