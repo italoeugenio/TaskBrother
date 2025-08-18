@@ -3,6 +3,7 @@ package com.italo.TaskBrother.models.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -16,6 +17,9 @@ public class FamilyModel {
     @Column(name = "family_ID")
     private UUID familyID;
 
-    @Column(name = "family_name")
+    @Column(name = "family_name", nullable = false)
     private String familyName;
+
+    @OneToMany(mappedBy = "familyFK")
+    private List<UserModel> userModelList;
 }

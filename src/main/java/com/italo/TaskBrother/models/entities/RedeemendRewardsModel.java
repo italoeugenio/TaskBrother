@@ -17,7 +17,7 @@ public class RedeemendRewardsModel {
     private UUID redeemendRewardsID;
 
     @OneToOne
-    @PrimaryKeyJoinColumn(name = "reward_FK")
+    @JoinColumn(name = "reward_FK")
     private RewardModel rewardFK;
 
     @ManyToOne

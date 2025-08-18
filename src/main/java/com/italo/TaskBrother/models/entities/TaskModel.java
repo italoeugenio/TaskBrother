@@ -23,13 +23,13 @@ public class TaskModel {
     @JoinColumn(name = "family_FK")
     private FamilyModel familyFK;
 
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "score_value")
+    @Column(name = "score_value", nullable = false)
     private Integer scoreValue;
 
     @Column(name = "task_status")
@@ -37,25 +37,20 @@ public class TaskModel {
     private TaskStatus taskStatus = TaskStatus.AVAILABLE;
 
     @Column(name = "create_at")
-    private LocalDateTime createAt;
+    private LocalDateTime createAt = LocalDateTime.now();
 
-    @Column(name = "deadline")
+    @Column(name = "deadline", nullable = false)
     private LocalDateTime deadline;
 
     @ManyToOne
     @JoinColumn(name = "create_by_parent")
     private UserModel createByParent;
 
-    @Column(name = "rejection_reason")
+    @Column(name = "rejection_reason" , nullable = true)
     private String rejectionReason;
 
     @ManyToOne
     @JoinColumn(name = "assigned_to")
     private UserModel assignedTo;
 
-
-
-    public static void main(String[] args) {
-
-    }
 }

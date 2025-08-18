@@ -16,13 +16,13 @@ public class RewardModel {
     @Column(name = "reward_ID")
     private UUID rewardID;
 
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private Integer price;
 
     @ManyToOne
