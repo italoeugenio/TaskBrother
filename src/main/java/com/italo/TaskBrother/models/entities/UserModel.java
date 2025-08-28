@@ -17,7 +17,7 @@ public class UserModel {
     private UUID userID;
 
     @ManyToOne
-    @JoinColumn(name = "family_FK", nullable = false)
+    @JoinColumn(name = "family_FK")
     private FamilyModel familyFK;
 
     @Column(unique = true , nullable = false)

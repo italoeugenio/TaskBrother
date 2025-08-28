@@ -51,6 +51,6 @@ public class FamilyService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Family don´t found");
         }
         familyRepository.delete(optionalFamilyModel.get());
-        return ResponseEntity.status(HttpStatus.OK).body("Family deleted");
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
