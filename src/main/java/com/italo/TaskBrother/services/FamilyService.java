@@ -26,13 +26,13 @@ public class FamilyService {
         return ResponseEntity.status(HttpStatus.CREATED).body(familyRepository.save(familyModel));
     }
 
-    public ResponseEntity<List<FamilyModel>> getAllFAmily(){
+    public ResponseEntity<List<FamilyModel>> getAllFamily(){
         return ResponseEntity.status(HttpStatus.OK).body(familyRepository.findAll());
     }
 
-    public ResponseEntity<Object> getFamilyById(UUID id){
+    public ResponseEntity<FamilyModel> getFamilyById(UUID id){
         Optional<FamilyModel> familyModel = familyRepository.findById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(familyModel);
+        return ResponseEntity.status(HttpStatus.OK).body(familyModel.get());
     }
 
     public ResponseEntity<Object> updateFamily(UUID id, @RequestBody FamilyRecordDTO familyRecordDTO){

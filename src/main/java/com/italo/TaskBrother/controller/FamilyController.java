@@ -24,11 +24,11 @@ public class FamilyController {
 
     @GetMapping("/get/all")
     public ResponseEntity<List<FamilyModel>> getAll() {
-        return familyService.getAllFAmily();
+        return familyService.getAllFamily();
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<Object> getById(@PathVariable("id") UUID id) {
+    public ResponseEntity<FamilyModel> getById(@PathVariable("id") UUID id) {
         return familyService.getFamilyById(id);
     }
 

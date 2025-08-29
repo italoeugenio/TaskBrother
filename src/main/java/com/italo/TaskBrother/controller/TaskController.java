@@ -26,15 +26,18 @@ public class TaskController {
         return taskService.saveTask(taskRecordDTO);
     }
 
-
     @GetMapping("/get/all")
     public ResponseEntity<List<TaskModel>> getAllTask(@RequestParam(required = false) TaskStatus status){
         return taskService.getAllTask(status);
     }
 
-    @PutMapping("put/{id}")
+    @PutMapping("/put/{id}")
     public ResponseEntity<Object> updateTask(@PathVariable("id") UUID id, @Valid @RequestBody TaskRecordUpdateDTO taskRecordUpdateDTO){
         return taskService.updateTask(id, taskRecordUpdateDTO);
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Object> deleteById(@PathVariable("id") UUID id){
+        return taskService.deleteById(id);
+    }
 }

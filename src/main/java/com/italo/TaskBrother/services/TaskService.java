@@ -35,6 +35,14 @@ public class TaskService {
         return ResponseEntity.status(HttpStatus.OK).body(taskRepository.findAll());
     }
 
+    public ResponseEntity<TaskModel> getById(UUID id){
+        Optional<TaskModel> optionalTaskModel = taskRepository.findById(id);
+        if(optionalTaskModel.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(optionalTaskModel.get());
+    }
+
     public ResponseEntity<Object> updateTask(UUID id, @RequestBody TaskRecordUpdateDTO taskRecordUpdateDTO) {
         Optional<TaskModel> optionalTaskModel = taskRepository.findById(id);
         if (optionalTaskModel.isEmpty()) {
@@ -48,8 +56,9 @@ public class TaskService {
     public ResponseEntity<Object> deleteById(UUID id) {
         Optional<TaskModel> taskModelOptional = taskRepository.findById(id);
         if (taskModelOptional.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Tasks don´t found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tasks don´t found");
         }
+        taskRepository.delete(taskModelOptional.get());
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
