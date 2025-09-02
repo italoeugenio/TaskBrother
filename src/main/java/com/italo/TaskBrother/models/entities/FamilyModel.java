@@ -22,4 +22,28 @@ public class FamilyModel {
 
     @OneToMany(mappedBy = "familyFK")
     private List<UserModel> userModelList;
+
+    public UUID getFamilyID() {
+        return familyID;
+    }
+
+    public void setFamilyID(UUID familyID) {
+        this.familyID = familyID;
+    }
+
+    public String getFamilyName() {
+        return familyName;
+    }
+
+    public void setFamilyName(String familyName) {
+        this.familyName = familyName;
+    }
+
+    public List<UserModel> getUserModelList() {
+        return userModelList;
+    }
+
+    public void setUserModelList(List<UserModel> userModelList) {
+        this.userModelList = userModelList;
+    }
 }
