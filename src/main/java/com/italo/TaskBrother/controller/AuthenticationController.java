@@ -1,6 +1,8 @@
 package com.italo.TaskBrother.controller;
 
+import com.italo.TaskBrother.infra.security.TokenService;
 import com.italo.TaskBrother.models.dtos.AuthenticationDTO;
+import com.italo.TaskBrother.models.dtos.LoginRespondeDTO;
 import com.italo.TaskBrother.models.dtos.RegisterDTO;
 import com.italo.TaskBrother.models.entities.UserModel;
 import com.italo.TaskBrother.models.repository.UserRepository;
@@ -26,11 +28,16 @@ public class AuthenticationController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private TokenService tokenService;
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
-        return ResponseEntity.status(HttpStatus.OK).build();
+
+        var token = tokenService.generateToken((UserModel) auth.getPrincipal());
+
+        return ResponseEntity.status(HttpStatus.OK).body(new LoginRespondeDTO(token));
     }
 
     @PostMapping("/register")
