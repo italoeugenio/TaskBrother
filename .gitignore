@@ -31,3 +31,13 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### GIT ATTRIBUTES ###
+.gitattributes
+
+
+### Env ###
+.env
+
+### Misc ###
+.DS_Store
