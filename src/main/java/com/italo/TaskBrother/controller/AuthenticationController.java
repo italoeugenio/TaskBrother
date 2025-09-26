@@ -6,6 +6,7 @@ import com.italo.TaskBrother.models.dtos.LoginRespondeDTO;
 import com.italo.TaskBrother.models.dtos.RegisterDTO;
 import com.italo.TaskBrother.models.entities.UserModel;
 import com.italo.TaskBrother.models.repository.UserRepository;
+import com.italo.TaskBrother.utils.EmailValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,6 +43,9 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Valid RegisterDTO data){
+        if (!EmailValidator.checkIfEmailIsValid(data.email())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid email format");
+        }
         if(userRepository.findByEmail(data.email()) != null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
