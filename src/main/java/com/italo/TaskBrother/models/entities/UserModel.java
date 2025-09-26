@@ -1,65 +1,31 @@
 package com.italo.TaskBrother.models.entities;
 
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "user_tb")
-public class UserModel implements UserDetails {
-    private static final long serialVersion= 1L;
+@Table(name = "TB_USERS")
+public class UserModel {
+    private static final long serialVersion = 1L;
 
     @Id
-    private UUID userId;
-    private String username;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "user_ID")
+    private UUID userID;
+
+    @ManyToOne
+    @JoinColumn(name = "family_FK")
+    private FamilyModel familyFK;
+
+    @Column(unique = true , nullable = false)
     private String email;
-    private Boolean enabled;
-    private Integer verificationCode;
-    private Instant verificationExpiration;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
-    }
+    @Column(nullable = false)
+    private String password;
 
-    @Override
-    public String getPassword() {
-        return "";
-    }
-
-    @Override
-    public String getUsername() {
-        return "";
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return UserDetails.super.isAccountNonExpired();
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return UserDetails.super.isAccountNonLocked();
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return UserDetails.super.isCredentialsNonExpired();
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
-    }
+    @Column(name = "wallet")
+    private Integer wallet = 0;
 }
